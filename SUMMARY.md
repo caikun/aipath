@@ -38,6 +38,7 @@
       - [ACL应用python案例](frames/ascend/acl_demo_python.md)
       - [ACL应用C++案例](frames/ascend/acl_demo_cpp.md)
     - [学习队列](frames/ascend/study_queue/Cann.md) 
+    - [A200DK-A2开发套件](frames/ascend/dev/200dk-a2/hello_a200dk-a2.md) 
   - [配置工作站](frames/config_dl_workstation.md)
   - [英伟达](frames/nvidia_cuda/README.md)
     - [GPU选型](frames/nvidia_cuda/gpu_selection.md)
