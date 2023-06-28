@@ -28,6 +28,7 @@
     - [昇腾架构](frames/ascend/intro/ascend_full_stack.md)
       - [达芬奇架构](frames/ascend/intro/davinci.md)
       - [dvpp](frames/ascend/intro/dvpp.md)
+      - [一些基本概念](frames/ascend/intro/base_knowledge.md)
     - [MindSpore](frames/ascend/mindspore/README.md)
     - [模型迁移适配](frames/ascend/dev/dev_DSL_op.md)
       - [TensorFlow模型迁移](frames/ascend/dev/model_convertion/tensorflow2npu.md)
