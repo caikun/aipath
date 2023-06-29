@@ -4,7 +4,7 @@ A200DK-A2开发套件上手初体验
 
 ##  1.拿到板子
 
-![33124744be909ed9e321a27a9cf288b](hello_a200dk-a2.assets/33124744be909ed9e321a27a9cf288b.jpg)
+![33124744be909ed9e321a27a9cf288b](hello_a200dk-a2.assets/33124744be909ed9e321a27a9cf288b.png)
 
 
 ## 2.制卡并启动
