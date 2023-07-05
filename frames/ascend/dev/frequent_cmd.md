@@ -1,5 +1,7 @@
-## 昇腾服务器安装常用脚本
+## 昇腾开发常用命令
 
+
+## 安装驱动和固件
 确认操作系统和内核版本
 ```
 uname -m && cat /etc/*release
@@ -28,3 +30,10 @@ useradd -g HwHiAiUser -d /home/HwHiAiUser -m HwHiAiUser -s /bin/bash
 ```
 lspci
 ```
+
+## 安装cann
+
+![img](frequent_cmd.assets/zh-cn_image_0000001566253738.png)
+
+参考：[cann官方手册](https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/63RC2alpha003/softwareinstall/instg/instg_000002.html)
+
