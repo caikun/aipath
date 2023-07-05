@@ -122,3 +122,6 @@ _book/
 node_modules/
 package-lock.json
 
+/frames/ascend/mindspore/exercise/MNIST_Data/test
+/frames/ascend/mindspore/exercise/MNIST_Data/train
+/frames/ascend/mindspore/exercise/*.ckpt

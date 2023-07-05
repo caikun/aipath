@@ -30,6 +30,7 @@
       - [dvpp](frames/ascend/intro/dvpp.md)
       - [一些基本概念](frames/ascend/intro/base_knowledge.md)
     - [MindSpore](frames/ascend/mindspore/README.md)
+      - [MindSpore模型迁移](frames/ascend/mindspore/MindSpore模型迁移.md)
     - [模型迁移适配](frames/ascend/dev/model_convertion/README.md)
       - [TensorFlow模型迁移](frames/ascend/dev/model_convertion/tensorflow2npu.md)
       - [AOE自动调优](frames/ascend/dev/model_convertion/pytorch2npu.md)
