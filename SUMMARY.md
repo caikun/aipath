@@ -251,3 +251,4 @@
 # NLP
 - [NLP](nlp/README.md)
   - [NLP论文研读](nlp/nlp_paper_path.md)
+  - [RNN](nlp/paper/rnn.md)
