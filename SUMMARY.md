@@ -15,6 +15,7 @@
     - [损失函数](dl/basic/loss_function.md)
     - [模型量化](dl/basic/model_slim.md)
     - [模型蒸馏](dl/basic/model_distillation.md)
+    - [深度学习历史](dl/basic/dl_history.md)
 - [框架与平台](frames/README.md)
   - [Tensorflow](frames/tesorflow/README.md)
     - [docker方式启动tensorflow](frames/tesorflow/tesorflow_docker.md)
