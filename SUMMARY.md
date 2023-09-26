@@ -25,6 +25,7 @@
   - [Keras](frames/keras/README.md)
     - [autokeras](frames/keras/autokeras/README.md)
   - [百度飞桨](frames/paddle/README.md)
+    - [Paddle教育资源](frames/paddle/paddle_res.md)
   - [华为昇腾](frames/ascend/README.md)
     - [昇腾架构](frames/ascend/intro/ascend_full_stack.md)
       - [达芬奇架构](frames/ascend/intro/davinci.md)
