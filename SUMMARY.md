@@ -71,6 +71,7 @@
     - [yuv和rgb](cv/basic/yuv和rgb.md)
   - [CV论文](cv/paper/README.md)
     - [CNN](cv/paper/cnn.md)
+    - [AlexNet](cv/paper/AlexNet.md)
     - [目标检测综述](cv/paper/detection_20years.md)
     - [目标检测模型](cv/paper/detection_models.md)
     - [Yolo系列](cv/paper/yolo/README.md)
