@@ -1,7 +1,7 @@
 # 大语言模型地图
 > 以下大模型特指：大语言模型，LLM
 
-## 1、大模型的基础
+## 1、大模型的介绍
 
 1. Transfomer
 2. 注意力机制
@@ -43,6 +43,10 @@
 ### 4.2 微调
 > 微调的目的：
 
+1. LoRA
+2. Adapter
+3. RLHF
+
 ## 5、大模型推理
 > 要解决的核心问题:"存得下" "跑得快"
 
@@ -72,3 +76,6 @@
 课程
 1. [【清华NLP】刘知远团队大模型公开课全网首发｜带你从入门到实战](https://www.bilibili.com/video/BV1UG411p7zv)
 2. [【ChatGLM3保姆级教程】安装部署、性能详解、实战应用，零基础入门到应用](https://www.bilibili.com/video/BV1Hc411q76k)
+3. [大模型微调实战](https://www.bilibili.com/video/BV1dN4y167vX)
+4. [大模型微调和实战：大模型微调方法原理及大模型主流技术架构全详解-北大AI博士](https://www.bilibili.com/video/BV1NC4y1c7ih)
+5. [国产大模型ChatGLM3-6B微调](https://www.bilibili.com/video/BV1y64y1G78N)
