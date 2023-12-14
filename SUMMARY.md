@@ -5,6 +5,7 @@
   - [一元线性回归](ml/linear_regression.md)
 - [深度学习](dl/README.md)
   - [DL知识地图](dl/dl_model_map.md)
+  - [LLM地图](dl/llm_map.md)
   - [DL基础](dl/basic/README.md)
     - [正则化](dl/basic/regularization.md)
     - [激活函数](dl/basic/active_function.md)
