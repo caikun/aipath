@@ -99,3 +99,6 @@
 课程
 1. [CNN、RNN、GAN、LSTM、Transform五大深度神经网络](https://www.bilibili.com/video/BV1oN4y1m75i)
 2. [从入门到精通CNN、RNN、GAN、GNN、DQN、Transformer](https://www.bilibili.com/video/BV1TQ4y147sD)
+
+博客
+1. [AIGC 绘画理论与保姆级实战](https://zhuanlan.zhihu.com/p/617042733)
