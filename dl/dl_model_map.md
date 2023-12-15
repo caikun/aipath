@@ -95,3 +95,7 @@
 
 1. [深度学习百科及面试资源](https://paddlepedia.readthedocs.io/en/latest/index.html) · [百度飞浆](https://www.paddlepaddle.org.cn/wholechain)
 2. [推理优化](https://zhuanlan.zhihu.com/p/665089816)
+
+课程
+1. [CNN、RNN、GAN、LSTM、Transform五大深度神经网络](https://www.bilibili.com/video/BV1oN4y1m75i)
+2. [从入门到精通CNN、RNN、GAN、GNN、DQN、Transformer](https://www.bilibili.com/video/BV1TQ4y147sD)

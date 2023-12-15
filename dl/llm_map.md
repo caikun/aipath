@@ -79,3 +79,6 @@
 3. [大模型微调实战](https://www.bilibili.com/video/BV1dN4y167vX)
 4. [大模型微调和实战：大模型微调方法原理及大模型主流技术架构全详解-北大AI博士](https://www.bilibili.com/video/BV1NC4y1c7ih)
 5. [国产大模型ChatGLM3-6B微调](https://www.bilibili.com/video/BV1y64y1G78N)
+
+仓库
+1. [llm-action](https://github.com/liguodongiot/llm-action)
