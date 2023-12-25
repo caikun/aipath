@@ -1,6 +1,5 @@
 # Transfomer
 
-
 Transformer是一种神经网络架构，由Vaswani等人在2017年提出，并在文本翻译任务中取得了显著的成功。与传统的循环神经网络（RNNs）和长短时记忆网络（LSTMs）不同，Transformer不依赖于顺序处理输入序列，而是使用自注意力机制（self-attention mechanism）实现对序列中不同位置的信息关注。
 
 以下是Transformer的主要组成部分和特点：
