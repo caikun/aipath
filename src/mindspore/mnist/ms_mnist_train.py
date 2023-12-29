@@ -1,65 +1,124 @@
-import torch
-import torch.nn as nn
-import torch.nn.functional as F
-import torch.optim as optim
-import torch.backends.cudnn as cudnn
-from torchvision import datasets, transforms
+import mindspore
+from mindspore import nn
+from mindspore.dataset import vision, transforms
+from mindspore.dataset import MnistDataset
+from download import download
 
+url = "https://mindspore-website.obs.cn-north-4.myhuaweicloud.com/" \
+      "notebook/datasets/MNIST_Data.zip"
+path = download(url, "./", kind="zip", replace=True)
+train_dataset = MnistDataset('MNIST_Data/train')
+test_dataset = MnistDataset('MNIST_Data/test')
+print(train_dataset.get_col_names())
 
-class Net(nn.Module):
+def datapipe(dataset, batch_size):
+    image_transforms = [
+        vision.Rescale(1.0 / 255.0, 0),
+        vision.Normalize(mean=(0.1307,), std=(0.3081,)),
+        vision.HWC2CHW()
+    ]
+    label_transform = transforms.TypeCast(mindspore.int32)
+
+    dataset = dataset.map(image_transforms, 'image')
+    dataset = dataset.map(label_transform, 'label')
+    dataset = dataset.batch(batch_size)
+    return dataset
+
+train_dataset = datapipe(train_dataset, 64)
+test_dataset = datapipe(test_dataset, 64)
+
+for image, label in test_dataset.create_tuple_iterator():
+    print(f"Shape of image [N, C, H, W]: {image.shape} {image.dtype}")
+    print(f"Shape of label: {label.shape} {label.dtype}")
+    break
+
+for data in test_dataset.create_dict_iterator():
+    print(f"Shape of image [N, C, H, W]: {data['image'].shape} {data['image'].dtype}")
+    print(f"Shape of label: {data['label'].shape} {data['label'].dtype}")
+    break
+
+class Network(nn.Cell):
     def __init__(self):
-        super(Net, self).__init__()
-        self.conv1 = nn.Conv2d(1, 10, kernel_size=5)
-        self.conv2 = nn.Conv2d(10, 20, kernel_size=5)
-        self.conv2_drop = nn.Dropout2d()
-        self.fc1 = nn.Linear(320, 50)
-        self.fc2 = nn.Linear(50, 10)
+        super().__init__()
+        self.flatten = nn.Flatten()
+        self.dense_relu_sequential = nn.SequentialCell(
+            nn.Dense(28*28, 512),
+            nn.ReLU(),
+            nn.Dense(512, 512),
+            nn.ReLU(),
+            nn.Dense(512, 10)
+        )
 
+    def construct(self, x):
+        x = self.flatten(x)
+        logits = self.dense_relu_sequential(x)
+        return logits
 
-    def forward(self, x):
-        x = F.relu(F.max_pool2d(self.conv1(x), 2))
-        x = F.relu(F.max_pool2d(self.conv2_drop(self.conv2(x)), 2))
-        x = x.view(-1, 320)
-        x = F.relu(self.fc1(x))
-        x = F.dropout(x, training=self.training)
-        x = self.fc2(x)
-        return F.log_softmax(x, dim=1)
+model = Network()
+print(model)
 
+# Instantiate loss function and optimizer
+loss_fn = nn.CrossEntropyLoss()
+optimizer = nn.SGD(model.trainable_params(), 1e-2)
 
-def train(model, device, train_loader, optimizer, epoch):
-    model.train()
-    for batch_idx, (data, target) in enumerate(train_loader):
-        data, target = data.to(device), target.to(device)
-        optimizer.zero_grad()
-        output = model(data)
-        loss = F.nll_loss(output, target)
-        loss.backward()
-        optimizer.step()
-        if batch_idx % 10 == 0:
-            print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(
-                epoch, batch_idx * len(data), len(train_loader.dataset),
-                       100. * batch_idx / len(train_loader), loss.item()))
+# 1. Define forward function
+def forward_fn(data, label):
+    logits = model(data)
+    loss = loss_fn(logits, label)
+    return loss, logits
 
+# 2. Get gradient function
+grad_fn = mindspore.value_and_grad(forward_fn, None, optimizer.parameters, has_aux=True)
 
-def main():
-    cudnn.benchmark = True
-    torch.manual_seed(1)
-    device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
-    print("Using device: {}".format(device))
-    kwargs = {'num_workers': 1, 'pin_memory': True}
-    train_loader = torch.utils.data.DataLoader(
-        datasets.MNIST('./data', train=True, download=True,
-                       transform=transforms.Compose([
-                           transforms.ToTensor(),
-                           transforms.Normalize((0.1307,), (0.3081,))
-                       ])),
-        batch_size=64, shuffle=True, **kwargs)
+# 3. Define function of one-step training
+def train_step(data, label):
+    (loss, _), grads = grad_fn(data, label)
+    optimizer(grads)
+    return loss
 
-    model = Net().to(device)
-    optimizer = optim.SGD(model.parameters(), lr=0.01, momentum=0.5)
+def train(model, dataset):
+    size = dataset.get_dataset_size()
+    model.set_train()
+    for batch, (data, label) in enumerate(dataset.create_tuple_iterator()):
+        loss = train_step(data, label)
 
-    for epoch in range(1, 11):
-        train(model, device, train_loader, optimizer, epoch)
+        if batch % 100 == 0:
+            loss, current = loss.asnumpy(), batch
+            print(f"loss: {loss:>7f}  [{current:>3d}/{size:>3d}]")
 
-if __name__ == '__main__':
-    main()
+def test(model, dataset, loss_fn):
+    num_batches = dataset.get_dataset_size()
+    model.set_train(False)
+    total, test_loss, correct = 0, 0, 0
+    for data, label in dataset.create_tuple_iterator():
+        pred = model(data)
+        total += len(data)
+        test_loss += loss_fn(pred, label).asnumpy()
+        correct += (pred.argmax(1) == label).asnumpy().sum()
+    test_loss /= num_batches
+    correct /= total
+    print(f"Test: \n Accuracy: {(100*correct):>0.1f}%, Avg loss: {test_loss:>8f} \n")
+
+epochs = 3
+for t in range(epochs):
+    print(f"Epoch {t+1}\n-------------------------------")
+    train(model, train_dataset)
+    test(model, test_dataset, loss_fn)
+print("Done!")            
+
+mindspore.save_checkpoint(model, "model.ckpt")
+print("Saved Model to model.ckpt")
+
+# Instantiate a random initialized model
+model = Network()
+# Load checkpoint and load parameter to model
+param_dict = mindspore.load_checkpoint("model.ckpt")
+param_not_load, _ = mindspore.load_param_into_net(model, param_dict)
+print(param_not_load)
+
+model.set_train(False)
+for data, label in test_dataset:
+    pred = model(data)
+    predicted = pred.argmax(1)
+    print(f'Predicted: "{predicted[:10]}", Actual: "{label[:10]}"')
+    break

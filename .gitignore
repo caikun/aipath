@@ -126,3 +126,7 @@ package-lock.json
 /frames/ascend/mindspore/exercise/MNIST_Data/train
 /frames/ascend/mindspore/exercise/*.ckpt
 src/mnist/data/MNIST/
+src/mindspore/tutorials/MNIST_Data
+src/pytorch/mnist/data
+src/mindspore/mnist/MNIST_Data
+src/mindspore/tutorials/model.ckpt
