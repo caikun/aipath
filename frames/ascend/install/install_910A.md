@@ -186,7 +186,6 @@ xxx表示安装的实际软件包名。
 
 使用前要导入环境变量
 ```
-Please make sure that the environment variables have been configured.
 -  To take effect for all users, you can add "source /usr/local/Ascend/ascend-toolkit/set_env.sh" to /etc/profile.
 -  To take effect for current user, you can exec command below: source /usr/local/Ascend/ascend-toolkit/set_env.sh or add "source /usr/local/Ascend/ascend-toolkit/set_env.sh" to ~/.bashrc.
 ```
