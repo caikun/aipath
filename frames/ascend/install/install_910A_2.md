@@ -12,10 +12,13 @@ cd -
 conda init bash
 ```
 
-
-conda install mindspore=2.2.10 -c mindspore -c conda-forge
+创建环境
+```
+conda create -n py39ms2.2 python=3.9
 conda activate py39ms2.2
-pip3 install mindspore-2.2.0-cp37-cp37m-linux_aarch64.whl
+pip3 install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/MindSpore/unified/aarch64/mindspore-2.2.0-cp39-cp39-linux_aarch64.whl
+```
+
 
 配置环境变量
 如果昇腾AI处理器配套软件包没有安装在默认路径，安装好MindSpore之后，需要导出Runtime相关环境变量，下述命令中LOCAL_ASCEND=/usr/local/Ascend的/usr/local/Ascend表示配套软件包的安装路径，需注意将其改为配套软件包的实际安装路径。
