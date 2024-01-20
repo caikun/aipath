@@ -2,10 +2,20 @@
 > 版本配套参考： https://mindformers.readthedocs.io/zh-cn/latest/Version_Match.html
 > 选择：MindFormers 0.8  MindSpore 2.2.0  CANN 7.0.RC.beta1: aarch64 x86_64
 
+安装miniconda
+```
+cd /tmp
+curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py37_4.10.3-Linux-$(arch).sh
+bash Miniconda3-py37_4.10.3-Linux-$(arch).sh -b
+cd -
+. ~/miniconda3/etc/profile.d/conda.sh
+conda init bash
+```
+
 
 conda install mindspore=2.2.10 -c mindspore -c conda-forge
-
 conda activate py39ms2.2
+pip3 install mindspore-2.2.0-cp37-cp37m-linux_aarch64.whl
 
 配置环境变量
 如果昇腾AI处理器配套软件包没有安装在默认路径，安装好MindSpore之后，需要导出Runtime相关环境变量，下述命令中LOCAL_ASCEND=/usr/local/Ascend的/usr/local/Ascend表示配套软件包的安装路径，需注意将其改为配套软件包的实际安装路径。
@@ -111,3 +121,46 @@ export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}
 
 # 安装MindFormers
 > 参考 https://gitee.com/mindspore/mindformers
+
+## 安装
+方式1：Linux源码编译安装
+支持源码编译安装，用户可以执行下述的命令进行包的安装
+```
+git clone -b dev https://gitee.com/mindspore/mindformers.git
+cd mindformers
+bash build.sh
+```
+
+方式2：镜像
+docker下载命令
+```
+docker pull swr.cn-central-221.ovaijisuan.com/mindformers/mindformers0.8.0_mindspore2.2.0:aarch_20231025
+```
+创建容器
+```
+# --device用于控制指定容器的运行NPU卡号和范围
+# -v 用于映射容器外的目录
+# --name 用于自定义容器名称
+
+docker run -it -u root \
+--ipc=host \
+--network host \
+--device=/dev/davinci0 \
+--device=/dev/davinci1 \
+--device=/dev/davinci2 \
+--device=/dev/davinci3 \
+--device=/dev/davinci4 \
+--device=/dev/davinci5 \
+--device=/dev/davinci6 \
+--device=/dev/davinci7 \
+--device=/dev/davinci_manager \
+--device=/dev/devmm_svm \
+--device=/dev/hisi_hdc \
+-v /etc/localtime:/etc/localtime \
+-v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
+-v /var/log/npu/:/usr/slog \
+-v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
+--name {请手动输入容器名称} \
+swr.cn-central-221.ovaijisuan.com/mindformers/mindformers0.8.0_mindspore2.2.0:aarch_20231025 \
+/bin/bash
+```
