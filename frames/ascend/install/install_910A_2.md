@@ -129,7 +129,7 @@ export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}
 方式1：Linux源码编译安装
 支持源码编译安装，用户可以执行下述的命令进行包的安装
 ```
-git clone -b dev https://gitee.com/mindspore/mindformers.git
+git clone -b r0.8 https://gitee.com/mindspore/mindformers.git
 cd mindformers
 bash build.sh
 ```
