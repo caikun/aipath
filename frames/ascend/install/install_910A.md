@@ -101,9 +101,48 @@ Firmware package installed successfully!
 
 
 安装依赖
-
-```sudo apt-get install -y gcc g++ make cmake zlib1g zlib1g-dev openssl libsqlite3-dev libssl-dev libffi-dev unzip pciutils net-tools libblas-dev gfortran libblas3
 ```
+sudo apt-get install -y gcc g++ make cmake zlib1g zlib1g-dev openssl libsqlite3-dev libssl-dev libffi-dev unzip pciutils net-tools libblas-dev gfortran libblas3
+```
+检查系统是否安装满足版本要求的python开发环境（具体要求请参见依赖列表，此步骤以环境上需要使用python 3.7.x为例进行说明）。
+执行命令python3 --version，如果返回信息满足python版本要求，则直接进入下一步。
+
+否则可参考如下方式安装python3.7.5。
+
+使用wget下载python3.7.5源码包，可以下载到安装环境的任意目录，命令为：
+```
+wget https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz
+```
+进入下载后的目录，解压源码包，命令为：
+```
+tar -zxvf Python-3.7.5.tgz
+```
+进入解压后的文件夹，执行配置、编译和安装命令：
+```
+cd Python-3.7.5
+./configure --prefix=/usr/local/python3.7.5 --enable-loadable-sqlite-extensions --enable-shared
+make
+make install
+```
+其中“--prefix”参数用于指定python安装路径，用户根据实际情况进行修改。“--enable-shared”参数用于编译出libpython3.7m.so.1.0动态库。“--enable-loadable-sqlite-extensions”参数用于加载libsqlite3-dev依赖。
+
+本手册以--prefix=/usr/local/python3.7.5路径为例进行说明。执行配置、编译和安装命令后，安装包在/usr/local/python3.7.5路径，libpython3.7m.so.1.0动态库在/usr/local/python3.7.5/lib/libpython3.7m.so.1.0路径。
+
+设置python3.7.5环境变量。
+```
+#用于设置python3.7.5库文件路径
+export LD_LIBRARY_PATH=/usr/local/python3.7.5/lib:$LD_LIBRARY_PATH
+#如果用户环境存在多个python3版本，则指定使用python3.7.5版本
+export PATH=/usr/local/python3.7.5/bin:$PATH
+```
+通过以上export方式设置环境变量，该种方式设置的环境变量只在当前窗口有效。您也可以通过将以上命令写入~/.bashrc文件中，然后执行source ~/.bashrc命令，使上述环境变量永久生效。注意如果后续您有使用环境上其他python版本的需求，则不建议将以上命令写入到~/.bashrc文件中。
+
+安装完成之后，执行如下命令查看安装版本，如果返回相关版本信息，则说明安装成功。
+```
+python3 --version
+pip3 --version
+```
+
 
 安装前请先使用pip3 list命令检查是否安装相关依赖，若已经安装，则请跳过该步骤；若未安装，则安装命令如下
 ```
