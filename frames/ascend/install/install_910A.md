@@ -16,7 +16,7 @@ network:
   version: 2
   renderer: networkd
   ethernets:
-    enp1s0:
+    enp189s0f0:
       dhcp4: no
       addresses: [168.170.140.82/16]
       gateway4: 168.170.1.1
