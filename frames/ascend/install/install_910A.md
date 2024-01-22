@@ -1,18 +1,34 @@
-
+# 安装910A
 # 安装操作系统
 ubuntu20.04: https://mirrors.aliyun.com/oldubuntu-releases/releases/20.04/?spm=a2c6h.25603864.0.0.10eb7ff35r3X2f
 安装指南: https://support.huawei.com/enterprise/zh/doc/EDOC1100258049/47513e18?idPath=23710424|251366513|22892968|252309113|250702818
 
+配置网络
+
+```
+network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp1s0:
+      dhcp4: no
+      addresses: [168.170.140.9/16]
+      gateway4: 168.170.1.1
+      nameservers:
+          addresses: [114.114.114.114]
+```
+
+netplan apply
 
 # 安装驱动
 > 参考：https://support.huawei.com/enterprise/zh/doc/EDOC1100349467/2645a51f?idPath=23710424|251366513|22892968|252764743
 
 安装依赖
 apt install -y make 
-apt install -y dkms 
 apt install -y gcc
+apt install -y dkms 
 apt install -y linux-header
-
+apt install -y net-tools
 
 以root用户登录服务器。
 执行如下命令，创建运行用户。
@@ -74,10 +90,37 @@ Firmware package installed successfully!
 > 参考: https://www.hiascend.com/document/detail/zh/CANNCommunityEdition/700alpha003/softwareinstall/instg/instg_000002.html
 
 安装依赖
-sudo apt-get install -y gcc g++ make cmake zlib1g zlib1g-dev openssl libsqlite3-dev libssl-dev libffi-dev unzip pciutils net-tools libblas-dev gfortran libblas3
+apt-get update
+apt-get install -y gcc g++ make cmake zlib1g zlib1g-dev openssl libsqlite3-dev libssl-dev libffi-dev unzip pciutils net-tools libblas-dev gfortran libblas3
+
+ubuntu18.04 需要安装 Py3.7.5,22.04以上版本不需要
+```
+使用wget下载python3.7.5源码包，可以下载到安装环境的任意目录，命令为：
+wget https://www.python.org/ftp/python/3.7.5/Python-3.7.5.tgz
+进入下载后的目录，解压源码包，命令为：
+tar -zxvf Python-3.7.5.tgz
+进入解压后的文件夹，执行配置、编译和安装命令：
+cd Python-3.7.5
+./configure --prefix=/usr/local/python3.7.5 --enable-loadable-sqlite-extensions --enable-shared
+make && make install
+其中“--prefix”参数用于指定python安装路径，用户根据实际情况进行修改。“--enable-shared”参数用于编译出libpython3.7m.so.1.0动态库。“--enable-loadable-sqlite-extensions”参数用于加载libsqlite3-dev依赖。
+
+本手册以--prefix=/usr/local/python3.7.5路径为例进行说明。执行配置、编译和安装命令后，安装包在/usr/local/python3.7.5路径，libpython3.7m.so.1.0动态库在/usr/local/python3.7.5/lib/libpython3.7m.so.1.0路径。
+
+设置python3.7.5环境变量。
+#用于设置python3.7.5库文件路径
+export LD_LIBRARY_PATH=/usr/local/python3.7.5/lib:$LD_LIBRARY_PATH
+#如果用户环境存在多个python3版本，则指定使用python3.7.5版本
+export PATH=/usr/local/python3.7.5/bin:$PATH
+通过以上export方式设置环境变量，该种方式设置的环境变量只在当前窗口有效。您也可以通过将以上命令写入~/.bashrc文件中，然后执行source ~/.bashrc命令，使上述环境变量永久生效。注意如果后续您有使用环境上其他python版本的需求，则不建议将以上命令写入到~/.bashrc文件中。
+
+安装完成之后，执行如下命令查看安装版本，如果返回相关版本信息，则说明安装成功。
+python3 --version
+pip3 --version
+```
 
 安装前请先使用pip3 list命令检查是否安装相关依赖，若已经安装，则请跳过该步骤；若未安装，则安装命令如下
-pip3 install attrs
+pip3 install attrs  -i https://pypi.tuna.tsinghua.edu.cn/simple  --trusted-host pypi.tuna.tsinghua.edu.cn
 pip3 install numpy
 pip3 install decorator
 pip3 install sympy
@@ -91,15 +134,19 @@ pip3 install requests
 pip3 install absl-py
 
 
-
 加对软件包的可执行权限。
 chmod +x 软件包名.run
 软件包名.run表示开发套件包Ascend-cann-toolkit_{version}_linux-{arch}.run，请根据实际包名进行替换。
 
 执行如下命令校验软件包安装文件的一致性和完整性。
-./软件包名.run --check
+./Ascend-cann-toolkit_7.0.RC1_linux-aarch64.run --check
 执行以下命令安装软件（以下命令支持--install-path=<path>等参数，具体参数说明请参见参数说明）。
-./软件包名.run --install
+./Ascend-cann-toolkit_7.0.RC1_linux-aarch64.run --install
+
+如果用户未指定安装路径，则软件会安装到默认路径下，默认安装路径如下。
+root用户：“/usr/local/Ascend”
+非root用户：“${HOME}/Ascend”
+其中${HOME}为当前用户目录。
 
 用户需签署华为企业业务最终用户许可协议（EULA）后进入安装流程
 #配置为英文
@@ -108,10 +155,62 @@ export LANG=en_US.UTF-8
 xxx install success
 xxx表示安装的实际软件包名。
 
+*配置环境变量*
+
+CANN软件提供进程级环境变量设置脚本，供用户在进程中引用，以自动完成环境变量设置。用户进程结束后自动失效。示例如下（以root用户默认安装路径为例）：
+
+安装toolkit包时配置
+. /usr/local/Ascend/ascend-toolkit/set_env.sh
+
+用户也可以通过修改~/.bashrc文件方式设置永久环境变量，操作如下：
+以运行用户在任意目录下执行vi ~/.bashrc命令，打开.bashrc文件，在文件最后一行后面添加上述内容。
+执行:wq!命令保存文件并退出。
+执行source ~/.bashrc命令使其立即生效。
+
+```
+Please make sure that the environment variables have been configured.
+-  To take effect for all users, you can add "source /usr/local/Ascend/ascend-toolkit/set_env.sh" to /etc/profile.
+-  To take effect for current user, you can exec command below: source /usr/local/Ascend/ascend-toolkit/set_env.sh or add "source /usr/local/Ascend/ascend-toolkit/set_env.sh" to ~/.bashrc.
+```
+
+# 安装conda 
+
+
+# 安装Pytorch
+apt-get install -y patch build-essential libbz2-dev libreadline-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev liblzma-dev m4 dos2unix libopenblas-dev git 
+apt-get install -y gcc==7.3.0 cmake==3.12.0 #gcc7.3.0版本及以上，cmake3.12.0版本及以上。若用户要安装1.11.0版本PyTorch，则gcc需为7.5.0版本以上。
+
+pip3 install torch==2.0.1+cpu  
 
 # 安装Mindspore
 > 版本配套参考： https://mindformers.readthedocs.io/zh-cn/latest/Version_Match.html
 > 选择：MindFormers 0.8  MindSpore 2.2.0  CANN 7.0.RC.beta1: aarch64 x86_64
 
+conda create -n py39ms2.2 python=3.9
+conda activate py39ms2.2
+pip install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/MindSpore/unified/aarch64/mindspore-2.2.0-cp39-cp39-linux_aarch64.whl
 
-conda install mindspore=2.2.10 -c mindspore -c conda-forge
+
+
+# control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
+export GLOG_v=2
+
+# Conda environmental options
+LOCAL_ASCEND=/usr/local/Ascend # the root directory of run package
+
+# lib libraries that the run package depends on
+export LD_LIBRARY_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/lib64:${LOCAL_ASCEND}/driver/lib64:${LOCAL_ASCEND}/ascend-toolkit/latest/opp/built-in/op_impl/ai_core/tbe/op_tiling:${LD_LIBRARY_PATH}
+
+# Environment variables that must be configured
+## TBE operator implementation tool path
+export TBE_IMPL_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp/built-in/op_impl/ai_core/tbe
+## OPP path
+export ASCEND_OPP_PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/opp
+## AICPU path
+export ASCEND_AICPU_PATH=${ASCEND_OPP_PATH}/..
+## TBE operator compilation tool path
+export PATH=${LOCAL_ASCEND}/ascend-toolkit/latest/compiler/ccec_compiler/bin/:${PATH}
+## Python library that TBE implementation depends on
+export PYTHONPATH=${TBE_IMPL_PATH}:${PYTHONPATH}
+
+python -c "import mindspore;mindspore.set_context(device_target='Ascend');mindspore.run_check()"
