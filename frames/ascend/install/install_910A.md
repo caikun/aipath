@@ -29,6 +29,33 @@ network:
 netplan apply
 ```
 
+更换apt的源
+```
+cp -a /etc/apt/sources.list /etc/apt/sources.list.bak
+sed -i "s@http://.*archive.ubuntu.com@http://mirrors.huaweicloud.com@g" /etc/apt/sources.list
+sed -i "s@http://.*security.ubuntu.com@http://mirrors.huaweicloud.com@g" /etc/apt/sources.list
+```
+
+apt的源文件
+```
+deb https://repo.huaweicloud.com/ubuntu-ports/ bionic main restricted universe multiverse
+deb-src https://repo.huaweicloud.com/ubuntu-ports/ bionic main restricted universe multiverse
+
+deb https://repo.huaweicloud.com/ubuntu-ports/ bionic-security main restricted universe multiverse
+deb-src https://repo.huaweicloud.com/ubuntu-ports/ bionic-security main restricted universe multiverse
+
+deb https://repo.huaweicloud.com/ubuntu-ports/ bionic-updates main restricted universe multiverse
+deb-src https://repo.huaweicloud.com/ubuntu-ports/ bionic-updates main restricted universe multiverse
+
+deb https://repo.huaweicloud.com/ubuntu-ports/ bionic-backports main restricted universe multiverse
+deb-src https://repo.huaweicloud.com/ubuntu-ports/ bionic-backports main restricted universe multiverse
+
+## Not recommended
+# deb https://repo.huaweicloud.com/ubuntu-ports/ bionic-proposed main restricted universe multiverse
+# deb-src https://repo.huaweicloud.com/ubuntu-ports/ bionic-proposed main restricted universe multiverse
+```
+
+
 # 安装驱动
 > 参考：https://support.huawei.com/enterprise/zh/doc/EDOC1100349467/2645a51f?idPath=23710424|251366513|22892968|252764743
 
