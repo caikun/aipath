@@ -216,9 +216,17 @@ pip3 install absl-py
 
 > 可以使用aliyun的源
 > ```
-> pip3 config set global.index-url http://mirrors.aliyun.com/pypi/simple
-> pip3 config set install.trusted-host mirrors.aliyun.com
+> pip3 config set global.index-url http://mirrors.huaweicloud.com/repository/pypi/simple
+> pip3 config set trusted-host mirrors.huaweicloud.com
 > ```
+
+~/.pip/pip.conf
+```
+[global]
+index-url = https://mirrors.huaweicloud.com/repository/pypi/simple
+trusted-host = mirrors.huaweicloud.com
+timeout = 120
+```
 
 加对软件包的可执行权限。
 chmod +x 软件包名.run
@@ -422,7 +430,7 @@ docker pull swr.cn-central-221.ovaijisuan.com/mindformers/mindformers0.8.0_minds
 # -v 用于映射容器外的目录
 # --name 用于自定义容器名称
 
-docker run -it -u root \
+docker run -dit -u root \
 --ipc=host \
 --network host \
 --device=/dev/davinci0 \
@@ -440,7 +448,8 @@ docker run -it -u root \
 -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
 -v /var/log/npu/:/usr/slog \
 -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
---name {请手动输入容器名称} \
+-v /root/src:/root/src \
+--name mf_8d-lpf \
 swr.cn-central-221.ovaijisuan.com/mindformers/mindformers0.8.0_mindspore2.2.0:aarch_20231025 \
 /bin/bash
 ```
