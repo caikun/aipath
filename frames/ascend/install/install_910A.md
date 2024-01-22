@@ -5,6 +5,12 @@ ubuntu20.04: https://mirrors.aliyun.com/oldubuntu-releases/releases/20.04/?spm=a
 
 配置网络
 
+查询网卡
+```
+ip addr
+```
+
+网络配置
 ```
 network:
   version: 2
@@ -12,13 +18,16 @@ network:
   ethernets:
     enp1s0:
       dhcp4: no
-      addresses: [168.170.140.9/16]
+      addresses: [168.170.140.82/16]
       gateway4: 168.170.1.1
       nameservers:
           addresses: [114.114.114.114]
 ```
 
+生效网络
+```
 netplan apply
+```
 
 # 安装驱动
 > 参考：https://support.huawei.com/enterprise/zh/doc/EDOC1100349467/2645a51f?idPath=23710424|251366513|22892968|252764743
