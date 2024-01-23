@@ -235,14 +235,17 @@ chmod +x 软件包名.run
 软件包名.run表示开发套件包Ascend-cann-toolkit_{version}_linux-{arch}.run，请根据实际包名进行替换。
 
 执行如下命令校验软件包安装文件的一致性和完整性。
+```
 ./Ascend-cann-toolkit_7.0.RC1_linux-aarch64.run --check
+```
 执行以下命令安装软件（以下命令支持--install-path=<path>等参数，具体参数说明请参见参数说明）。
+```
 ./Ascend-cann-toolkit_7.0.RC1_linux-aarch64.run --install
+```
 
 如果用户未指定安装路径，则软件会安装到默认路径下，默认安装路径如下。
-root用户：“/usr/local/Ascend”
-非root用户：“${HOME}/Ascend”
-其中${HOME}为当前用户目录。
+
+root用户：`/usr/local/Ascend` ; 非root用户：`${HOME}/Ascend`, 其中`${HOME}`为当前用户目录。
 
 用户需签署华为企业业务最终用户许可协议（EULA）后进入安装流程
 ```
@@ -278,25 +281,16 @@ Please make sure that the environment variables have been configured.
 
 # 安装conda 
 
-
-# 安装Pytorch
-apt-get install -y patch build-essential libbz2-dev libreadline-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev liblzma-dev m4 dos2unix libopenblas-dev git 
-apt-get install -y gcc==7.3.0 cmake==3.12.0 #gcc7.3.0版本及以上，cmake3.12.0版本及以上。若用户要安装1.11.0版本PyTorch，则gcc需为7.5.0版本以上。
-
-pip3 install torch==2.0.1+cpu  
-
-# 安装Mindspore
-> 版本配套参考： https://mindformers.readthedocs.io/zh-cn/latest/Version_Match.html
-> 选择：MindFormers 0.8  MindSpore 2.2.0  CANN 7.0.RC.beta1: aarch64 x86_64
-
 安装miniconda
 ```
-cd /tmp
-curl -O https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/Miniconda3-py37_4.10.3-Linux-$(arch).sh
-bash Miniconda3-py37_4.10.3-Linux-$(arch).sh -b
-cd -
-. ~/miniconda3/etc/profile.d/conda.sh
-conda init bash
+mkdir -p ~/miniconda3
+wget https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh -O ~/miniconda3/miniconda.sh
+bash ~/miniconda3/miniconda.sh -b -u -p ~/miniconda3
+# rm -rf ~/miniconda3/miniconda.sh
+
+# 如需初始化bash或zsh
+# ~/miniconda3/bin/conda init bash
+# ~/miniconda3/bin/conda init zsh
 ```
 
 创建环境
@@ -305,6 +299,17 @@ conda create -n ms2.2py39 python=3.9
 conda activate ms2.2py39
 pip3 install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/MindSpore/unified/aarch64/mindspore-2.2.0-cp39-cp39-linux_aarch64.whl
 ```
+
+# 安装Pytorch
+apt-get install -y patch build-essential libbz2-dev libreadline-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev liblzma-dev m4 dos2unix libopenblas-dev git 
+apt-get install -y gcc==7.3.0 cmake==3.12.0 #gcc7.3.0版本及以上，cmake3.12.0版本及以上。若用户要安装1.11.0版本PyTorch，则gcc需为7.5.0版本以上。
+```
+pip3 install torch==2.0.1+cpu  
+```
+
+# 安装Mindspore
+> 版本配套参考： https://mindformers.readthedocs.io/zh-cn/latest/Version_Match.html
+> 选择：MindFormers 0.8  MindSpore 2.2.0  CANN 7.0.RC.beta1: aarch64 x86_64
 
 
 配置环境变量
