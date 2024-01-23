@@ -229,7 +229,9 @@ timeout = 120
 ```
 
 加对软件包的可执行权限。
+```
 chmod +x 软件包名.run
+```
 软件包名.run表示开发套件包Ascend-cann-toolkit_{version}_linux-{arch}.run，请根据实际包名进行替换。
 
 执行如下命令校验软件包安装文件的一致性和完整性。
@@ -299,8 +301,8 @@ conda init bash
 
 创建环境
 ```
-conda create -n py39ms2.2 python=3.9
-conda activate py39ms2.2
+conda create -n ms2.2py39 python=3.9
+conda activate ms2.2py39
 pip3 install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/MindSpore/unified/aarch64/mindspore-2.2.0-cp39-cp39-linux_aarch64.whl
 ```
 
