@@ -9,3 +9,7 @@
 昇思MindSpore总体架构如下图所示：
 
 ![MindSpore Architecture](README.assets/MindSpore-architecture-zh.png)
+
+## 课程资源
+
+1. [昇思MindSpore资源一览](https://github.com/mindspore-courses)
