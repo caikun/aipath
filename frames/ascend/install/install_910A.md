@@ -265,16 +265,16 @@ xxx表示安装的实际软件包名。
 
 CANN软件提供进程级环境变量设置脚本，供用户在进程中引用，以自动完成环境变量设置。用户进程结束后自动失效。示例如下（以root用户默认安装路径为例）：
 
-安装toolkit包时配置
+安装toolkit包后配置变量
+```
 . /usr/local/Ascend/ascend-toolkit/set_env.sh
-
+```
 用户也可以通过修改~/.bashrc文件方式设置永久环境变量，操作如下：
 以运行用户在任意目录下执行vi ~/.bashrc命令，打开.bashrc文件，在文件最后一行后面添加上述内容。
 执行:wq!命令保存文件并退出。
 执行source ~/.bashrc命令使其立即生效。
 
 ```
-Please make sure that the environment variables have been configured.
 -  To take effect for all users, you can add "source /usr/local/Ascend/ascend-toolkit/set_env.sh" to /etc/profile.
 -  To take effect for current user, you can exec command below: source /usr/local/Ascend/ascend-toolkit/set_env.sh or add "source /usr/local/Ascend/ascend-toolkit/set_env.sh" to ~/.bashrc.
 ```
@@ -300,9 +300,11 @@ conda activate ms2.2py39
 pip3 install https://ms-release.obs.cn-north-4.myhuaweicloud.com/2.2.0/MindSpore/unified/aarch64/mindspore-2.2.0-cp39-cp39-linux_aarch64.whl
 ```
 
-# 安装Pytorch
+# 安装Pytorch（非必选）
+```
 apt-get install -y patch build-essential libbz2-dev libreadline-dev wget curl llvm libncurses5-dev libncursesw5-dev xz-utils tk-dev liblzma-dev m4 dos2unix libopenblas-dev git 
 apt-get install -y gcc==7.3.0 cmake==3.12.0 #gcc7.3.0版本及以上，cmake3.12.0版本及以上。若用户要安装1.11.0版本PyTorch，则gcc需为7.5.0版本以上。
+```
 ```
 pip3 install torch==2.0.1+cpu  
 ```
@@ -315,6 +317,8 @@ pip3 install torch==2.0.1+cpu
 配置环境变量
 如果昇腾AI处理器配套软件包没有安装在默认路径，安装好MindSpore之后，需要导出Runtime相关环境变量，下述命令中LOCAL_ASCEND=/usr/local/Ascend的/usr/local/Ascend表示配套软件包的安装路径，需注意将其改为配套软件包的实际安装路径。
 ```
+. /usr/local/Ascend/ascend-toolkit/set_env.sh
+
 # control log level. 0-DEBUG, 1-INFO, 2-WARNING, 3-ERROR, 4-CRITICAL, default level is WARNING.
 export GLOG_v=2
 

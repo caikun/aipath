@@ -10,3 +10,11 @@ docker pull swr.cn-central-221.ovaijisuan.com/mindformers/mindformers0.8.0_minds
 
 HF： https://hf-mirror.com/
 GitHub: https://mirror.ghproxy.com/https://github.com/*
+
+
+# FAQ
+1. Hccn连接的问题
+
+2. 怎么知道加载哪个configs对应文件
+
+3. 代码怎么断点调试
