@@ -13,3 +13,8 @@
 ## 课程资源
 
 1. [昇思MindSpore资源一览](https://github.com/mindspore-courses)
+
+## 问题支持
+
+1. [mindformers问题issue支持](https://gitee.com/mindspore/mindformers/issues)
+2. [昇腾论坛](https://www.hiascend.com/forum/forum-0176135224785452001-1.html)
