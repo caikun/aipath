@@ -35,6 +35,7 @@
       - [达芬奇架构](frames/ascend/intro/davinci.md)
       - [dvpp](frames/ascend/intro/dvpp.md)
       - [一些基本概念](frames/ascend/intro/base_knowledge.md)
+    - [安装](frames/ascend/install/install_910A.md)
     - [MindSpore](frames/ascend/mindspore/README.md)
       - [MindSpore模型迁移](frames/ascend/mindspore/MindSpore模型迁移.md)  
     - [昇腾开发](frames/ascend/dev/README.md)

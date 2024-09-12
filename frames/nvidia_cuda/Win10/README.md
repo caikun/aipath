@@ -12,14 +12,14 @@ B站视频教程参考: https://www.bilibili.com/video/BV1ng411M7qV
 
 ![image-20220419160425015](README.assets/image-20220419160425015.png)
 
-## 安装Tookit和CuDNN
+## 安装CUDA和CuDNN
 
 ### 前言
 
 windows10 版本安装 CUDA ，首先需要下载两个安装包
 
 - CUDA toolkit（toolkit就是指工具包）
-- cuDNN(cuDNN 是用于配置深度学习使用)
+- cuDNN(cuDNN ,cuda Deep Nenural Network, 是用于配置深度学习使用)
 
 官方教程
 CUDA：https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/index.html
