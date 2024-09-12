@@ -5,7 +5,7 @@
   - [一元线性回归](ml/linear_regression.md)
 - [深度学习](dl/README.md)
   - [DL知识地图](dl/dl_model_map.md)
-  - [LLM地图](dl/llm/llm_map.md)
+  - [LLM地图](dl/llm/README.md)
     - [HuggingFace](dl/llm/hf.md)
     - [Transfomer](dl/llm/transfomer.md)
   - [DL基础](dl/basic/README.md)
