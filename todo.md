@@ -1,8 +1,7 @@
 
 工业机器视觉.http://www.cvtutorials.com/
 
-coco数据集工具
-https://github.com/cocodataset/cocoapi/blob/master/PythonAPI/pycocotools/cocoeval.py
+coco数据集工具 https://github.com/cocodataset/cocoapi/blob/master/PythonAPI/pycocotools/cocoeval.py
 
 
 [三个月从零入门深度学习](https://www.bilibili.com/video/BV1yg411K72z)
