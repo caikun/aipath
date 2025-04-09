@@ -11,6 +11,9 @@
    1. [B站:PyTorch深度学习快速入门教程【超全完整版】龙良曲PyTorch入门实战](https://www.bilibili.com/video/BV1TN411k7hT)
    2. [B站:小土堆入门pytorch](https://www.bilibili.com/video/BV1hE411t7RN)
 
+动手实操
+1. 
+
 ## 文档
 
 pytorch开发文档本地网页离线查看
