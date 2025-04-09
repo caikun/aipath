@@ -1,7 +1,18 @@
 # yolo11
 
+## 安装
 > 仓库参考： https://github.com/ultralytics/ultralytics
 > 文档参考： https://docs.ultralytics.com/zh/models/yolo11/#performance-metrics
+
+```
+pip install ultralytics
+```
+
+依赖
+|组件|版本|
+|--|--|
+|cuda|11.8|
+|torch|2.0|
 
 ## 训练
 ```
