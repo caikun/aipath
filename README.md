@@ -30,12 +30,6 @@
 - [CV工具](cv/tools/README.md)
 - [OpenCV](cv/opencv/README.md)
 
-## 项目
-
-- [AI项目](project/README.md)
-- [八斗学院项目](project/八斗学院.md)
-- [AI边缘项目开发](project/edge/ai_edge_dev.md)
-
 ## 其他
 
 - [成长路线](others/ai_path.md)
@@ -43,14 +37,17 @@
 - [书籍](others/ai_books.md)
 - [基础问题](others/basic_questions.md)
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/20200404200312425.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2RoYWl1ZGE=,size_16,color_FFFFFF,t_70#pic_center)
+---
+如果觉得还不错，关注 【飞见AI】 公众号获得更多优质文章和免费资料。
 
+[](./assets/wechat_code.jpg)
 
 ----------------------------------------
 
 **项目规范**
 
-本文使用 [`Markdown`](https://www.markdownguide.org/basic-syntax) 编写, 排版符合[`中文技术文档写作规范`](https://github.com/hbulpf/document-style-guide)。Find Me On [**Github**](https://github.com/hbulpf/aipath) , [**Gitee**](https://gitee.com/hecloudAi/aipath)
+本文使用 [`Markdown`](https://www.markdownguide.org/basic-syntax) 编写, 排版符合[`中文技术文档写作规范`](https://github.com/hbulpf/document-style-guide)。
+Find Me On [**Github**](https://github.com/RunAtWorld/aipath) , [**Gitee**](https://gitee.com/RunAtWorld)
 
 **友情贡献**
 
